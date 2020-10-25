@@ -1,0 +1,92 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+{% load bootstrap %}
+{% block content %}
+
+<div class="offer-sale-pair">   
+    <div class="cardoffered">
+        <h2> You Offered:</h2>
+
+        <div class="card">
+        
+            <div class="card-body">
+                <h5 class="card-title"><b>{{card.name}}</b> <img src="{% static 'css/mlblogo.jpg' %}" style="width: 50px; margin: 3px;"></h5> 
+                
+                <ul style="list-style-type: none;" class="infolist card-text">
+                    <li>Position: {{card.position}}</li>
+                    <li>Team: {{card.team.name}}</li>
+                    <li>Jersey #: {{card.jersey_number}}</li>
+                    <li>Height: {{card.height_ft}}ft, {{card.height_in}}in</li>
+                    <li>Weight: {{card.weight}}</li>
+                    <li>Bats: {{card.bats}}</li>
+                    <li>Throws: {{card.throws}}</li>
+                    <li>Birth Day: {{card.birth_date}}</li>
+                    <li>Player ID: {{card.player_id}}</li>
+                </ul>
+                
+            </div>
+            <div class="card-footer">
+                <small class="text-muted footer-buttons">
+                    <a href="{% url 'deleteoffer' bid_id=offer.id %}"> <button class="btn btn-danger">Retract Offer</button></a> 
+                    
+                </small>
+            </div>
+        </div>
+
+
+        
+    </div>
+
+
+    <div class="exchange-icon-div">
+        <img src="{% static 'css/exchangeicon.jpg' %}" class="exchange-icon-pic">
+
+    </div>
+
+
+
+    <div class="salesbidon">
+        <h2>For:</h2>
+
+        <div class="card">
+        
+            <div class="card-body">
+                <h5 class="card-title"><b>{{sale.card.name}}</b> <img src="{% static 'css/mlblogo.jpg' %}" style="width: 50px; margin: 3px;"></h5> 
+                
+                <ul style="list-style-type: none;" class="infolist card-text">
+                    <li>Position: {{sale.card.position}}</li>
+                    <li>Team: {{sale.card.team.name}}</li>
+                    <li>Jersey #: {{sale.card.jersey_number}}</li>
+                    <li>Height: {{sale.card.height_ft}}ft, {{sale.card.height_in}}in</li>
+                    <li>Weight: {{sale.card.weight}}</li>
+                    <li>Bats: {{sale.card.bats}}</li>
+                    <li>Throws: {{sale.card.throws}}</li>
+                    <li>Birth Day: {{sale.card.birth_date}}</li>
+                    <li>Player ID: {{sale.card.player_id}}</li>
+                </ul>
+                
+            </div>
+            <div class="card-footer">
+                <small class="text-muted footer-buttons">
+                    Seller: {{sale.profile.user.username}} 
+                    
+                </small>
+            </div>
+        </div>
+
+
+
+
+        
+       
+    </div>
+</div> 
+
+<a href="{% url 'homepage' %}"> <button class="btn btn-primary" style="background-color: navy;">Back to Home</button></a>
+
+
+
+
+
+
+{% endblock %}

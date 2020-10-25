@@ -1,0 +1,88 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+{% load bootstrap %}
+{% block content %}
+<h2> To make an offer for {{sale.card.name}}, choose one of your cards below:</h2>
+<div class="make-offer-for">
+    <div></div>
+    <div class="card">
+        
+        <div class="card-body">
+            <h5 class="card-title"><b>{{sale.card.name}}</b> <img src="{% static 'css/mlblogo.jpg' %}" style="width: 50px; margin: 3px;"></h5> 
+            
+            <ul style="list-style-type: none;" class="infolist card-text">
+                <li>Position: {{sale.card.position}}</li>
+                <li>Team: {{sale.card.team.name}}</li>
+                <li>Jersey #: {{sale.card.jersey_number}}</li>
+                <li>Height: {{sale.card.height_ft}}ft, {{sale.card.height_in}}in</li>
+                <li>Weight: {{sale.card.weight}}</li>
+                <li>Bats: {{sale.card.bats}}</li>
+                <li>Throws: {{sale.card.throws}}</li>
+                <li>Birth Day: {{sale.card.birth_date}}</li>
+                <li>Player ID: {{sale.card.player_id}}</li>
+            </ul>
+            
+        </div>
+        <div class="card-footer">
+            <small class="text-muted footer-buttons">
+                <div>
+                    Seller: <b> {{sale.profile.user.username}}</b> 
+                </div>
+            </small>
+        </div>
+    </div>
+    <div></div>
+</div>
+
+<div class="exchange-icon-div-bid">
+    <img style="width: 200px; transform: rotate(90deg);" src="{% static 'css/exchangeicon.jpg' %}" class="exchange-icon-pic">
+
+</div>
+
+
+<div class="my-cards offer-a-card">
+    <h2 style="margin-left: 20px;">Choose a card to offer:</h2>
+
+    <div class="card-columns" style="padding: 20px;">
+
+        {% for card in user.profile.cards_owned.all %}
+    
+        <div class="card">
+        
+        <div class="card-body">
+            <h5 class="card-title"><b>{{card.name}}</b> <img src="{% static 'css/mlblogo.jpg' %}" style="width: 50px; margin: 3px;"></h5> 
+            
+            <ul style="list-style-type: none;" class="infolist card-text">
+                <li>Position: {{card.position}}</li>
+                <li>Team: {{card.team.name}}</li>
+                <li>Jersey #: {{card.jersey_number}}</li>
+                <li>Height: {{card.height_ft}}ft, {{card.height_in}}in</li>
+                <li>Weight: {{card.weight}}</li>
+                <li>Bats: {{card.bats}}</li>
+                <li>Throws: {{card.throws}}</li>
+                <li>Birth Day: {{card.birth_date}}</li>
+                <li>Player ID: {{card.player_id}}</li>
+            </ul>
+        
+        </div>
+        <div class="card-footer">
+            <small class="text-muted footer-buttons">
+                <button type="submit" class="btn-sm btn-primary"><a style="color: white;" href="{% url 'offer' card_id=card.id sale_id=sale.id %}">Offer</a> </button>
+                {% if card in cards_for_sale %}
+                    <a href="{% url 'mysales' %}"><button type="submit" class="btn-sm btn-outline-warning">For Sale</button></a>
+                {%endif%}
+                {% if card in cards_offered %}
+                    <a href="{% url 'myoffers' %}"><button type="submit" class="btn-sm btn-outline-warning">Offered</button></a>
+                {%endif%}
+            </small>
+        </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+
+
+
+
+{% endblock %}

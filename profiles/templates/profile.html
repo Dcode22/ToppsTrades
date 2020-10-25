@@ -1,0 +1,70 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+
+
+{% block content %}
+<div class="user-name-and-profile">
+    <h2>{{user.username}}:</h2>
+    <div class="user-profile">
+        <div>
+            
+            <img src="{{user.profile.image.url}}" id="profilepic">
+        </div>
+        <div class="user-info-grid">
+            <div><b>Username:  </b>  {{user.username}}</div>
+            <div><b>First Name:  </b>  {{user.first_name}}</div>
+            <div><b>Last Name:  </b>  {{user.last_name}}</div>
+            <div><b>Email:  </b>  {{user.email}}</div>
+            <div><button type="submit" style="margin-left: 10px; background-color: navy;" class="btn-sm btn-primary"><a style="color: white;" href="{% url 'edit_profile' %}">Edit Profile</a></button></div>
+            
+        </div>
+
+
+    </div>
+</div>
+
+<div class="my-cards">
+    <h2 style="margin-left: 20px;">My Cards:</h2>
+
+    <div class="card-columns" style="padding: 20px;">
+
+        {% for card in user.profile.cards_owned.all %}
+    
+        <div class="card">
+        
+        <div class="card-body">
+            <h5 class="card-title"><b>{{card.name}}</b> <img src="{% static 'css/mlblogo.jpg' %}" style="width: 50px; margin: 3px;"></h5> 
+            
+            <ul style="list-style-type: none;" class="infolist card-text">
+                <li>Position: {{card.position}}</li>
+                <li>Team: {{card.team.name}}</li>
+                <li>Jersey #: {{card.jersey_number}}</li>
+                <li>Height: {{card.height_ft}}ft, {{card.height_in}}in</li>
+                <li>Weight: {{card.weight}}</li>
+                <li>Bats: {{card.bats}}</li>
+                <li>Throws: {{card.throws}}</li>
+                <li>Birth Day: {{card.birth_date}}</li>
+                <li>Player ID: {{card.player_id}}</li>
+            </ul>
+        
+        </div>
+        <div class="card-footer">
+            <small class="text-muted footer-buttons">
+                    {% if card not in cards_for_sale %}
+                        <button type="submit" class="btn-sm btn-danger"><a style="color: white;" href="{% url 'sell' profile_id=user.profile.id card_id=card.id %}">Sell</a> </button>
+                    {% else %}
+                        <a href="{% url 'mysales' %}"><button type="submit" class="btn-sm btn-outline-warning">For Sale</button></a>
+                    {%endif%}
+                    {% if card in cards_offered %}
+                        <a href="{% url 'myoffers' %}"><button type="submit" class="btn-sm btn-outline-warning">Offered</button></a>
+                    {%endif%}
+            </small>
+        </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+
+
+{% endblock %}

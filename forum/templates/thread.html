@@ -1,0 +1,39 @@
+{% extends 'partials/base.html' %}
+
+{% block header %}
+<div class="thread-header">
+    <h1>Topps Forum </b></h1>
+    
+    <div class="thread-title">
+        <div style="display: flex; justify-content: space-between;">
+        <h3>Topic: {{thread.title}}</h3> <a href="{% url 'add_post' thread_id=thread.id %}"> <button class="btn btn-danger">Post</button> </a>
+    </div>
+        <h6>Created by: {{thread.profile.user.username}} on: {{thread.date_created}}</h6>
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="all-posts">
+    {% for post in thread.posts.all %}
+    <div class="post-card">
+        <h6 class="user-time-info">User: <b>{{post.profile.user.username}}</b> {{post.date_created}}</h6>
+        <h4><b>{{post.title}}</b></h4>
+        <p>{{post.text}}</p>
+        {% if request.user == post.profile.user %}
+        <a href="{% url 'delete_post' post_id=post.id %}"> <button class="btn-sm btn-danger"> Delete Post </button></a>
+        {% endif %}
+        {% for response in post.responses.all %}
+        <div class="response">
+            <small>
+                <p class="user-time-info">User: <b>{{response.profile.user.username}}</b> {{response.date_created}}</p>
+                <p>{{response.text}}</p> 
+            </small>
+        </div>
+        {% endfor %}
+        <a href="{% url 'add_response' post_id=post.id %}">Add Response</a>
+    </div>
+    {% endfor %}
+</div>
+<a href="{% url 'add_post' thread_id=thread.id %}"> <button class="btn btn-danger">Post</button> </a>
+{% endblock%}

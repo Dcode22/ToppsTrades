@@ -1,0 +1,10 @@
+{% extends 'partials/base.html' %}
+{% load bootstrap %}
+{% block content %}
+Add a post in thread: {{thread.title}}:
+<form method="POST">
+    {{form}}
+    {% csrf_token %}
+    <input type="submit" title="Add Thread">
+</form>
+{% endblock%}

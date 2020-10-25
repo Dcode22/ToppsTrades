@@ -1,0 +1,90 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+
+{% block content %}
+<h1>MY OFFERS</h1>
+
+
+    {% for offer in user.profile.bids.all %}
+    <div class="offer-sale-pair">   
+        <div class="cardoffered">
+            <h2> You Offered:</h2>
+
+            <div class="card">
+            
+                <div class="card-body">
+                    <h5 class="card-title"><b>{{offer.card.name}}</b> <img src="{% static 'css/mlblogo.jpg' %}" style="width: 50px; margin: 3px;"></h5> 
+                    
+                    <ul style="list-style-type: none;" class="infolist card-text">
+                        <li>Position: {{offer.card.position}}</li>
+                        <li>Team: {{offer.card.team.name}}</li>
+                        <li>Jersey #: {{offer.card.jersey_number}}</li>
+                        <li>Height: {{offer.card.height_ft}}ft, {{offer.card.height_in}}in</li>
+                        <li>Weight: {{offer.card.weight}}</li>
+                        <li>Bats: {{offer.card.bats}}</li>
+                        <li>Throws: {{offer.card.throws}}</li>
+                        <li>Birth Day: {{offer.card.birth_date}}</li>
+                        <li>Player ID: {{offer.card.player_id}}</li>
+                    </ul>
+                    
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted footer-buttons">
+                        <a href="{% url 'deleteoffer' bid_id=offer.id %}"> <button class="btn btn-danger">Retract Offer</button></a>
+                        
+                    </small>
+                </div>
+            </div>
+
+
+            
+        </div>
+
+
+        <div class="exchange-icon-div">
+            <img src="{% static 'css/exchangeicon.jpg' %}" class="exchange-icon-pic">
+
+        </div>
+
+
+
+        <div class="salesbidon">
+            <h2>For:</h2>
+
+            <div class="card">
+            
+                <div class="card-body">
+                    <h5 class="card-title"><b>{{offer.sale.card.name}}</b> <img src="{% static 'css/mlblogo.jpg' %}" style="width: 50px; margin: 3px;"></h5> 
+                    
+                    <ul style="list-style-type: none;" class="infolist card-text">
+                        <li>Position: {{offer.sale.card.position}}</li>
+                        <li>Team: {{offer.sale.card.team.name}}</li>
+                        <li>Jersey #: {{offer.sale.card.jersey_number}}</li>
+                        <li>Height: {{offer.sale.card.height_ft}}ft, {{offer.sale.card.height_in}}in</li>
+                        <li>Weight: {{offer.sale.card.weight}}</li>
+                        <li>Bats: {{offer.sale.card.bats}}</li>
+                        <li>Throws: {{offer.sale.card.throws}}</li>
+                        <li>Birth Day: {{offer.sale.card.birth_date}}</li>
+                        <li>Player ID: {{offer.sale.card.player_id}}</li>
+                    </ul>
+                    
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted footer-buttons">
+                        Seller: {{offer.sale.profile.user.username}} 
+                        
+                    </small>
+                </div>
+            </div>
+
+
+
+
+            
+           
+        </div>
+    </div> 
+    {% endfor %}
+
+
+{% endblock %}

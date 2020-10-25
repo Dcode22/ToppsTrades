@@ -1,0 +1,13 @@
+{% extends 'partials/base.html' %}
+{%load bootstrap%}
+{% block content %}
+<h3>Log In</h3>
+<form method="POST" class="col-md-5">
+
+    {{form|bootstrap}}
+    {% csrf_token %}
+    <button type="submit" class="btn btn-primary" style="background-color: navy;">Submit</button>
+</form>
+
+
+{% endblock %}
